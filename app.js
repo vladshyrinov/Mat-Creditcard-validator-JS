@@ -1,9 +1,17 @@
 function isCreditCardValid(str) {
-    if (str.length > 19 || +str[str.length - 1] % 2) {
+    if (str.length > 19) {
         return {
             valid: false,
             number: str,
-            error: "wrong_length_or_odd_final_number"
+            error: "wrong_length"
+        };
+    }
+
+    if (+str[str.length - 1] % 2) {
+        return {
+            valid: false,
+            number: str,
+            error: "odd_final_number"
         };
     }
 
@@ -31,11 +39,19 @@ function isCreditCardValid(str) {
         sum += numbers[i];
     }
 
-    if (!count || sum < 16) {
+    if (!count) {
         return {
             valid: false,
             number: str,
-            error: "sum_less_than_16_or_same_type_numbers"
+            error: "same_type_numbers"
+        };
+    }
+
+    if (sum < 16) {
+        return {
+            valid: false,
+            number: str,
+            error: "sum_less_than_16"
         };
     }
 
